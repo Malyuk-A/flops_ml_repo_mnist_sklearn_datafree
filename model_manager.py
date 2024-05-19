@@ -4,10 +4,11 @@ from typing import Any, Tuple
 import mlflow
 import mlflow.sklearn
 import numpy as np
-from data_manager import DataManager
 from flops_utils.ml_repo_templates import ModelManagerTemplate
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import log_loss
+
+from flops_ml_repo_mnist_sklearn_datafree.data_manager import DataManager
 
 mlflow.sklearn.autolog()
 
@@ -38,7 +39,7 @@ class ModelManager(ModelManagerTemplate):
         if self.model.fit_intercept:
             self.model.intercept_ = np.zeros((n_classes,))
 
-    def prepare_data(self) -> None:
+    def set_model_data(self) -> None:
         (self.x_train, self.x_test), (self.y_train, self.y_test) = (
             DataManager().get_data()
         )

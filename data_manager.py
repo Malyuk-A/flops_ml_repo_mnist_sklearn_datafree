@@ -1,17 +1,19 @@
 from typing import Any, Tuple
 
+from flops_utils.flops_learner_files_wrapper import load_ml_data
 from flops_utils.ml_repo_templates import DataManagerTemplate
 from flwr_datasets import FederatedDataset
 
 
 class DataManager(DataManagerTemplate):
     def __init__(self):
-        (self.x_train, self.x_test), (self.y_train, self.y_test) = self._load_data()
+        (self.x_train, self.x_test), (self.y_train, self.y_test) = self._prepare_data()
 
-    def _load_data(self, partition_id=1) -> None:
+    def _prepare_data(self, partition_id=1) -> Any:  # TODO adjust
         """Reference: https://github.com/adap/flower/blob/main/examples/sklearn-logreg-mnist/client.py"""
-        fds = FederatedDataset(dataset="mnist", partitioners={"train": 3})
-        dataset = fds.load_partition(partition_id, "train").with_format("numpy")
+        dataset = load_ml_data()
+        # fds = FederatedDataset(dataset="mnist", partitioners={"train": 3})
+        # dataset = fds.load_partition(partition_id, "train").with_format("numpy")
         x, y = dataset["image"].reshape((len(dataset), -1)), dataset["label"]
         # Split the on edge data: 80% train, 20% test
         train_split = int(0.8 * len(x))

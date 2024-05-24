@@ -12,8 +12,7 @@ class DataManager(DataManagerTemplate):
 
     def _prepare_data(self, partition_id=1) -> Any:  # TODO adjust
         """Reference: https://github.com/adap/flower/blob/main/examples/sklearn-logreg-mnist/client.py"""
-        dataset = load_ml_data()
-        dataset.with_format("numpy")
+        dataset = load_ml_data().with_format("numpy")
 
         # fds = FederatedDataset(dataset="mnist", partitioners={"train": 3})
         # dataset = fds.load_partition(partition_id, "train").with_format("numpy")

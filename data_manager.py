@@ -1,8 +1,6 @@
 from typing import Any, Tuple
 
-# from flwr_datasets import FederatedDataset
-import datasets
-from flops_utils.flops_learner_files_wrapper import load_ml_data
+from flops_utils.flops_learner_files_wrapper import load_dataset
 from flops_utils.ml_repo_templates import DataManagerTemplate
 
 
@@ -12,10 +10,9 @@ class DataManager(DataManagerTemplate):
 
     def _prepare_data(self, partition_id=1) -> Any:  # TODO adjust
         """Reference: https://github.com/adap/flower/blob/main/examples/sklearn-logreg-mnist/client.py"""
-        dataset = load_ml_data().with_format("numpy")
+        dataset = load_dataset()
+        dataset.set_format("numpy")
 
-        # fds = FederatedDataset(dataset="mnist", partitioners={"train": 3})
-        # dataset = fds.load_partition(partition_id, "train").with_format("numpy")
         x, y = dataset["image"].reshape((len(dataset), -1)), dataset["label"]
         # Split the on edge data: 80% train, 20% test
         train_split = int(0.8 * len(x))

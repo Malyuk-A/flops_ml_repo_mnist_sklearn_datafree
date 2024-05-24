@@ -2,7 +2,8 @@ from typing import Any, Tuple
 
 from flops_utils.flops_learner_files_wrapper import load_ml_data
 from flops_utils.ml_repo_templates import DataManagerTemplate
-from flwr_datasets import FederatedDataset
+
+# from flwr_datasets import FederatedDataset
 
 
 class DataManager(DataManagerTemplate):

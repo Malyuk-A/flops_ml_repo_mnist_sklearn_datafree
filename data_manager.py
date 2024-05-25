@@ -1,6 +1,6 @@
 from typing import Any, Tuple
 
-from flops_utils.flops_learner_files_wrapper import load_dataset
+from flops_utils.ml_repo_building_blocks import load_dataset
 from flops_utils.ml_repo_templates import DataManagerTemplate
 
 
